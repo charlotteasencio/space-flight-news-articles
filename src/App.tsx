@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import NewsArticlesPage from './NewArticlesPage';
-import NewsArticleDetails from './NewsArticleDetails';
+import NewsArticleDetails from './NewsArticleDetails/NewsArticleDetails';
 import './index.css';
 
 function App() {

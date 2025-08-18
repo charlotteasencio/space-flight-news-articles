@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { NewsArticle } from "./NewArticlesPage";
-import NewsArticlesCard from "./NewsArticlesCard";
+import { NewsArticle } from "../utils/types";
+import NewsArticlesCard from "../NewsArticleCard/NewsArticlesCard";
 
 export default function NewsArticlesGrid() {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
