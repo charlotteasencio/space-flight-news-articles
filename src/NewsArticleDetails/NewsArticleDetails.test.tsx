@@ -20,8 +20,8 @@ describe("NewsArticlesDetails", () => {
             </BrowserRouter >
         );
 
-        // Check that loading text shows initially
-        expect(screen.getByText(/Loading article details/i)).toBeInTheDocument();
+        // Check that loading skeleton shows initially
+        expect(screen.getByTestId("skeleton-details")).toBeInTheDocument();
 
         //check that article details are rendered
         expect(await screen.findByText(mockArticle.title)).toBeInTheDocument();
