@@ -20,8 +20,9 @@ describe("NewsArticlesGrid", () => {
             </BrowserRouter >
         );
 
-        // Check that loading text shows initially
-        expect(screen.getByText(/Loading articles/i)).toBeInTheDocument();
+        // Check that loading skeleton shows initially
+        const loadedSkeletons = screen.queryAllByTestId("skeleton-card");
+        expect(loadedSkeletons.length).toBeGreaterThan(0);
 
         // Check that first article is present
         expect(await screen.findByText("Test Article 1")).toBeInTheDocument();
