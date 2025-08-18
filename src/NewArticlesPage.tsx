@@ -1,38 +1,49 @@
-import { useEffect, useState } from "react";
-import NewsArticlesCard from "./NewsArticlesCard";
+import NewsArticlesGrid from "./NewsArticlesGrid";
+
+export type Socials = {
+    bluesky?: string;
+    instagram?: string;
+    linkedin?: string;
+    mastodon?: string;
+    x?: string;
+    youtube?: string;
+}
+
+type Author = {
+    name: string;
+    socials: Socials;
+};
+
+type Launches = {
+    launch_id: string;
+    provider: string;
+}
+
+type Event = {
+    event_id: string;
+    provider: string;
+}
+
+export type NewsArticle = {
+    authors: Author[];
+    events: Event[];
+    featured: boolean
+    id: number;
+    image_url: string;
+    launches: Launches[];
+    news_site: string;
+    published_at: string;
+    summary: string;
+    title: string;
+    updated_at: string;
+    url: string;
+};
 
 export default function NewsArticlesPage() {
-    const [articles, setArticles] = useState<object[]>([]);
-
-    useEffect(() => {
-        const fetchArticles = async () => {
-            try {
-                const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles?limit=20');
-                const data = await response.json();
-                setArticles(data.results);
-            } catch (error) {
-                console.error('Error fetching articles:', error);
-            }
-        };
-        fetchArticles();
-    }, []);
-
     return (
-        <div>
-            {articles && articles.length > 0 ? (
-                <ul onClick={() => console.log('List clicked')}>
-                    {articles.map((article) => {
-                        const a = article as any;
-                        return (
-                            <li key={a.id}>
-                                <NewsArticlesCard article={article} />
-                            </li>
-                        );
-                    })}
-                </ul>
-            ) : (
-                <p>No articles found.</p>
-            )}
-        </div>
+        <div className="p-4 w-screen text-white">
+            <h1 className="text-2xl font-bold mb-4">Space News Articles</h1>
+            <NewsArticlesGrid />
+        </div >
     );
 };
