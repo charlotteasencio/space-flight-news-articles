@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NewsArticle } from "../utils/types";
 import NewsArticlesCard from "../NewsArticleCard/NewsArticlesCard";
+import SkeletonCard from "../Components/Skeleton/SkeletonCard";
 
 export default function NewsArticlesGrid() {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
@@ -13,7 +14,7 @@ export default function NewsArticlesGrid() {
             try {
                 //articles are being fetched from the Space Flight news API: https://www.spaceflightnewsapi.net/
                 //fetching only articles from before the date of 8/18/25 due to odity in the API images after this date
-                //this would never be done in a real life scendario but done here to avoid confusing UI issue not related to the code
+                //this would never be done in a real life scenario but done here to avoid confusing UI issue not related to the code
                 const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=8&published_at_lte=2025-08-18T00%3A00%3A00Z');
                 const data = await response.json();
                 setArticles(data.results);
@@ -30,9 +31,15 @@ export default function NewsArticlesGrid() {
         return <div className="text-center text-white w-full h-screen">Error loading articles: {error.message}</div>;
     }
 
+    //if loading, show skeleton cards
     if (loading) {
-        //skeleton grid?
-        return <div className="text-center text-white w-full h-screen">Loading articles...</div>;
+        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {Array.from({ length: 8 }).map((_, index) => (
+                    <SkeletonCard key={index} />
+                ))}
+            </div>
+        )
     }
 
     return (

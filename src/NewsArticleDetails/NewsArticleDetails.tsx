@@ -4,6 +4,8 @@ import { FaInstagram, FaLinkedin, FaMastodon, FaTwitter, FaYoutube } from "react
 import { PiButterfly } from "react-icons/pi";
 import LinkButton from "../Components/LinkButton";
 import { NewsArticle, Socials } from "../utils/types";
+import SkeletonDetails from "../Components/Skeleton/SkeletonDetails";
+import { formatDate } from "../utils/formatDate";
 
 export default function NewsArticleDetails() {
     const { id } = useParams();
@@ -41,7 +43,11 @@ export default function NewsArticleDetails() {
     }
 
     if (loading) {
-        return <div className="text-center text-white w-full h-screen">Loading article details...</div>;
+        return (
+            <div className="text-center text-white w-full h-screen">
+                <SkeletonDetails />
+            </div>
+        );
     }
 
     const renderAuthorSocials = (socials: Socials) => {
@@ -89,18 +95,21 @@ export default function NewsArticleDetails() {
         });
     }
 
+    const formattedDate = articleData && formatDate(articleData?.published_at);
+
     return (
         <div className="p-12 w-screen h-full text-white">
             <LinkButton path="/">Back</LinkButton>
             {articleData && (
-                <div className="max-w-3xl mx-auto border border-neutral-700 p-6 rounded-lg bg-neutral-800">
+                <div className="max-w-3xl mx-auto border border-neutral-700 p-6 mt-4 rounded-lg bg-neutral-800">
                     <h1 className="text-2xl font-bold mb-4">{articleData.title}</h1>
+                    <p className="text-sm mb-4">{formattedDate}</p>
                     <div className="mb-4 w-60 overflow-hidden rounded-lg">
                         <img src={articleData.image_url} alt={articleData.title} />
                     </div>
                     <p className="mb-4">{articleData.summary}</p>
                     {renderAuthors()}
-                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">View Article</a>
+                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="text-white hover:underline">View Article</a>
                 </div>
             )}
         </div>

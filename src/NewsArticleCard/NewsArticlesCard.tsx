@@ -13,7 +13,7 @@ export default function NewsArticlesCard({ article }: Props) {
             </div>
             <div className="p-4 flex justify-between flex-col flex-1">
                 <div>
-                    <h2 className="mb-2 text-lg font-medium">{article.title}</h2>
+                    <h2 className="mb-2 text-lg font-medium overflow-hidden line-clamp-3">{article.title}</h2>
                     <p className="overflow-hidden line-clamp-3 font-light">{article.summary}</p>
                 </div>
                 <div className="flex justify-end flex-shrink-0">
