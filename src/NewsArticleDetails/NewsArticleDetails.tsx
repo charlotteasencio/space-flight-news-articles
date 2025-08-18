@@ -1,9 +1,9 @@
 import { ReactElement, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { NewsArticle, Socials } from "./NewArticlesPage";
 import { FaInstagram, FaLinkedin, FaMastodon, FaTwitter, FaYoutube } from "react-icons/fa";
 import { PiButterfly } from "react-icons/pi";
-import LinkButton from "./Components/LinkButton";
+import LinkButton from "../Components/LinkButton";
+import { NewsArticle, Socials } from "../utils/types";
 
 export default function NewsArticleDetails() {
     const { id } = useParams();

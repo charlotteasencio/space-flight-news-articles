@@ -1,5 +1,5 @@
-import { NewsArticle } from "./NewArticlesPage";
-import LinkButton from "./Components/LinkButton";
+import { NewsArticle } from "../utils/types";
+import LinkButton from "../Components/LinkButton";
 
 type Props = {
     article: NewsArticle;
