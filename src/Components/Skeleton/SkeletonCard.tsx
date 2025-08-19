@@ -8,7 +8,7 @@ export default function SkeletonCard() {
                     <div className="bg-gray-700 animate-pulse h-12 w-full"></div>
                 </div>
                 <div className="flex justify-end flex-shrink-0">
-                    <button className="bg-blue-700 py-2 px-4 rounded h-6 w-12"></button>
+                    <button className="bg-blue-700 py-2 px-4 h-6 w-12 rounded"></button>
                 </div>
             </div>
         </div>
