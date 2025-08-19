@@ -3,9 +3,6 @@ import NewsArticlesGrid from "./NewsArticlesGrid";
 import { BrowserRouter } from 'react-router-dom';
 import { mockArticles } from "../utils/mockData";
 
-//moch fetch globally
-jest.spyOn(global, 'fetch');
-
 describe("NewsArticlesGrid", () => {
     it("renders articles after fetching", async () => {
         //@ts-ignore

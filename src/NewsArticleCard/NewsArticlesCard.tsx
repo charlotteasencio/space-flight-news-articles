@@ -6,9 +6,9 @@ type Props = {
 };
 
 export default function NewsArticlesCard({ article }: Props) {
-    //The API is returning some images with http instead of https, 
-    // which causes mixed content issues in browsers. 
-    // Repace http with https for secure image loading.
+    // The API is returning some images with http instead of https, 
+    // This causes mixed content issues. 
+    // Replacing http with https for secure image loading.
     const secureUrl = article.image_url.replace(/^http:\/\//i, "https://");
 
     return (

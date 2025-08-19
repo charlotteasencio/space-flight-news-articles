@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { NewsArticle } from "../utils/types";
 import NewsArticlesCard from "../NewsArticleCard/NewsArticlesCard";
 import SkeletonCard from "../Components/Skeleton/SkeletonCard";
+import GridLayout from "../Components/GridLayout";
 
 export default function NewsArticlesGrid() {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
@@ -71,19 +72,18 @@ export default function NewsArticlesGrid() {
         return <div className="text-center w-full h-screen">Error loading articles: {error.message}</div>;
     }
 
-    //if loading, show skeleton cards
     if (loading) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <GridLayout>
                 {Array.from({ length: 8 }).map((_, index) => (
                     <SkeletonCard key={index} />
                 ))}
-            </div>
+            </GridLayout>
         )
     }
 
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <GridLayout>
             {articles.map((article) => {
                 return (
                     <NewsArticlesCard article={article} key={article.id} />
@@ -95,6 +95,6 @@ export default function NewsArticlesGrid() {
                     <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
                 </div>
             )}
-        </div>
+        </GridLayout>
     );
 };

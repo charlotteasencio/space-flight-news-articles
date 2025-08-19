@@ -57,6 +57,7 @@ export default function NewsArticleDetails() {
 
         return Object.entries(socials).map(([platform, url]) => {
             if (!url) return null;
+
             //locate the correct icon based on the platform
             const icon = SocialsIcons[platform];
             if (!icon) return null;

@@ -3,9 +3,6 @@ import { mockArticle } from "../utils/mockData";
 import { BrowserRouter } from "react-router-dom";
 import NewsArticleDetails from "./NewsArticleDetails";
 
-//moch fetch globally
-jest.spyOn(global, 'fetch');
-
 describe("NewsArticlesDetails", () => {
     it("renders article title, summary, and image after fetching", async () => {
         //@ts-ignore
