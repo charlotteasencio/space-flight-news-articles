@@ -7,7 +7,7 @@ type Props = {
 
 export default function NewsArticlesCard({ article }: Props) {
     return (
-        <div className="block rounded-lg bg-neutral-800 text-white h-[460px] flex flex-col overflow-hidden">
+        <div className="block rounded-lg bg-neutral-800 h-[460px] flex flex-col overflow-hidden">
             <div className="mb-2 h-48 w-full overflow-hidden rounded-lg flex-shrink-0">
                 <img className="w-full h-full object-cover" src={article.image_url} alt={article.title} loading="lazy" />
             </div>

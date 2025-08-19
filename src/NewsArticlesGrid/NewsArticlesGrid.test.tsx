@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import NewsArticlesGrid from "./NewsArticlesGrid";
 import { BrowserRouter } from 'react-router-dom';
 import { mockArticles } from "../utils/mockData";
@@ -28,7 +28,7 @@ describe("NewsArticlesGrid", () => {
         expect(await screen.findByText("Test Article 1")).toBeInTheDocument();
 
         // Check that second article is present
-        expect(await screen.findByText("Test Article 1")).toBeInTheDocument();
+        expect(await screen.findByText("Test Article 2")).toBeInTheDocument();
 
         //Check that the correct number of articles are rendered
         const cards = screen.getAllByRole("img");
@@ -41,9 +41,7 @@ describe("NewsArticlesGrid", () => {
 
         render(<NewsArticlesGrid />);
 
-        // Wait for error to appear
-        await waitFor(() => {
-            expect(screen.getByText(/Error loading articles/i)).toBeInTheDocument();
-        });
+        //Check that error message is displayed
+        expect(await screen.findByText(/Error loading articles/i)).toBeInTheDocument();
     });
 });
