@@ -3,13 +3,13 @@ import { mockArticle } from "../utils/mockData";
 import { BrowserRouter } from "react-router-dom";
 import NewsArticleDetails from "./NewsArticleDetails";
 
+beforeEach(() => {
+    fetchMock.resetMocks();
+});
+
 describe("NewsArticlesDetails", () => {
     it("renders article title, summary, and image after fetching", async () => {
-        //@ts-ignore
-        fetch.mockResolvedValueOnce({
-            ok: true,
-            json: async () => mockArticle,
-        });
+        fetchMock.mockResponseOnce(JSON.stringify(mockArticle));
 
         render(
             <BrowserRouter>
@@ -27,8 +27,7 @@ describe("NewsArticlesDetails", () => {
     });
 
     it("renders error message if fetch fails", async () => {
-        // @ts-ignore
-        fetch.mockRejectedValueOnce(new Error("API failure"));
+        fetchMock.mockRejectOnce(new Error("API failure"))
 
         render(
             <BrowserRouter>

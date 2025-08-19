@@ -3,13 +3,13 @@ import NewsArticlesGrid from "./NewsArticlesGrid";
 import { BrowserRouter } from 'react-router-dom';
 import { mockArticles } from "../utils/mockData";
 
+beforeEach(() => {
+    fetchMock.resetMocks();
+});
+
 describe("NewsArticlesGrid", () => {
     it("renders articles after fetching", async () => {
-        //@ts-ignore
-        fetch.mockResolvedValueOnce({
-            ok: true,
-            json: async () => ({ results: mockArticles }),
-        });
+        fetchMock.mockResponseOnce(JSON.stringify({ results: mockArticles }));
 
         render(
             <BrowserRouter>
@@ -33,8 +33,7 @@ describe("NewsArticlesGrid", () => {
     });
 
     it("renders error message if fetch fails", async () => {
-        // @ts-ignore
-        fetch.mockRejectedValueOnce(new Error("API failure"));
+        fetchMock.mockRejectOnce(new Error("API failure"))
 
         render(<NewsArticlesGrid />);
 
