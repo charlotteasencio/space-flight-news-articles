@@ -16,8 +16,8 @@ export default function NewsArticlesGrid() {
             setLoading(true);
             try {
                 //articles are being fetched from the Space Flight news API: https://www.spaceflightnewsapi.net/
-                //fetching only articles from before the date of 8/18/25 due to odity in the API images being used for some articles after this date
-                //this would never be done in a real life scenario but done here to avoid confusing UI issue not related to the code
+                //fetching only articles from before the date of 8/18/25 due to an odity in the API images being used for some articles after this date
+                //this would not likely be done in a real life scenario but done here to avoid confusing UI issue not related to the code
                 const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=8&published_at_lte=2025-08-18T00%3A00%3A00Z');
                 const data = await response.json();
                 setArticles(data.results);
