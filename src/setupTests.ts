@@ -3,9 +3,8 @@
 // expect(element).toHaveTextContent(/react/i)
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
-
-//moch fetch globally
-jest.spyOn(global, 'fetch');
+import fetchMock from "jest-fetch-mock";
+fetchMock.enableMocks();
 
 // Mock IntersectionObserver on the window object
 Object.defineProperty(window, 'IntersectionObserver', {
