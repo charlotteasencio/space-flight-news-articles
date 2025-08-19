@@ -16,3 +16,6 @@
 1) Clone code from the repository or download and open the zip file
 2) Run `npm i` to install necessary packages
 3) Run `npm start` to start local host
+
+## Live Demo
+[Demo](https://charlotteasencio.github.io/space-flight-news-articles/)
