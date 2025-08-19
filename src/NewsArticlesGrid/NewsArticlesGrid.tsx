@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { NewsArticle } from "../utils/types";
 import NewsArticlesCard from "../NewsArticleCard/NewsArticlesCard";
 import SkeletonCard from "../Components/Skeleton/SkeletonCard";
 import GridLayout from "../Components/GridLayout";
+import LoadingSpinner from "../Components/LoadingSpinner";
 
 export default function NewsArticlesGrid() {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
@@ -16,12 +17,12 @@ export default function NewsArticlesGrid() {
         const fetchArticles = async () => {
             setLoading(true);
             try {
-                //articles are being fetched from the Space Flight news API: https://www.spaceflightnewsapi.net/
-                //fetching only articles from before the date of 8/18/25 due to an odity in the API images being used for some articles after this date
-                //this would not likely be done in a real life scenario but done here to avoid confusing UI issue not related to the code
-                const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=8&published_at_lte=2025-08-18T00%3A00%3A00Z');
+                // articles are being fetched from the Space Flight news API: https://www.spaceflightnewsapi.net/
+                // the first 8 articles are fetched and the remaining articles are fetched on scroll
+                const response = await fetch('https://api.spaceflightnewsapi.net/v4/articles/?limit=8');
                 const data = await response.json();
                 setArticles(data.results);
+                //set the next URL from the data response so that we can fetch next round of articles on scroll
                 setNextUrl(data.next);
             } catch (err) {
                 setError(err as Error)
@@ -32,22 +33,24 @@ export default function NewsArticlesGrid() {
         fetchArticles();
     }, []);
 
-    useEffect(() => {
-        const fetchMoreArticles = async () => {
-            if (!nextUrl || loadingMore || loading) return;
-            setLoadingMore(true);
-            try {
-                const response = await fetch(nextUrl);
-                const data = await response.json();
-                setArticles((prevArticles) => [...prevArticles, ...data.results]);
-                setNextUrl(data.next);
-            } catch (err) {
-                setError(err as Error);
-            } finally {
-                setLoadingMore(false);
-            }
-        };
+    //if this fetch pattern is going to be used in other places, we could extract into the custom hook
+    const fetchMoreArticles = useCallback(async () => {
+        if (!nextUrl || loadingMore || loading) return;
+        setLoadingMore(true);
+        try {
+            const response = await fetch(nextUrl);
+            const data = await response.json();
+            setArticles((prevArticles) => [...prevArticles, ...data.results]);
+            //set the next URL from the data response so that we can fetch next round of articles on scroll
+            setNextUrl(data.next);
+        } catch (err) {
+            setError(err as Error);
+        } finally {
+            setLoadingMore(false);
+        }
+    }, [nextUrl, loadingMore, loading]);
 
+    useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting) {
                 fetchMoreArticles();
@@ -66,7 +69,7 @@ export default function NewsArticlesGrid() {
             };
             observer.disconnect();
         };
-    }, [nextUrl, loadingMore, loading]);
+    }, [fetchMoreArticles]);
 
     if (error) {
         return <div className="text-center w-full h-screen">Error loading articles: {error.message}</div>;
@@ -90,11 +93,7 @@ export default function NewsArticlesGrid() {
                 );
             })}
             <div ref={targetRef}></div>
-            {loadingMore && (
-                <div className="flex justify-center items-center col-span-full">
-                    <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                </div>
-            )}
+            {loadingMore && <LoadingSpinner />}
         </GridLayout>
     );
 };

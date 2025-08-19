@@ -55,17 +55,17 @@ export default function NewsArticleDetails() {
             return null;
         }
 
-        return Object.entries(socials).map(([platform, url]) => {
-            if (!url) return null;
+        return Object.entries(socials).map(([platformName, platformUrl]) => {
+            if (!platformUrl) return null;
 
-            //locate the correct icon based on the platform
-            const icon = SocialsIcons[platform];
+            //locate the correct icon based on the platform to keep code DRY
+            const icon = SocialsIcons[platformName];
             if (!icon) return null;
 
             return (
                 <a
-                    key={platform}
-                    href={url}
+                    key={platformName}
+                    href={platformUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -86,7 +86,8 @@ export default function NewsArticleDetails() {
                     <p className="mb-2">
                         {name}
                     </p>
-                    {socials && Object.keys(socials).length > 0 && (
+                    {/*render socials if author has any*/}
+                    {socials && (
                         <div className="flex space-x-2">
                             {renderAuthorSocials(socials)}
                         </div>

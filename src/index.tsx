@@ -8,6 +8,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
+    {/* Using HashRouter since I want to deploy to github pages without affecting local routes
+        most likely would not be necessary outside of this context and would go with BrowserRouter
+        for cleaner URLs.""
+    */}
     <HashRouter>
       <App />
     </HashRouter>

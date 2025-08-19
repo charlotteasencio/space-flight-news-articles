@@ -1,8 +1,9 @@
+import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 
 type Props = {
     path: string;
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
 export default function LinkButton({ path, children }: Props) {
