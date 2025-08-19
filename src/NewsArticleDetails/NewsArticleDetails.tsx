@@ -39,12 +39,12 @@ export default function NewsArticleDetails() {
     }, [id]);
 
     if (error) {
-        return <div className="text-center text-white w-full h-screen">Error loading article details: {error.message}</div>;
+        return <div className="text-center w-full h-screen">Error loading article details: {error.message}</div>;
     }
 
     if (loading) {
         return (
-            <div className="text-center text-white w-full h-screen">
+            <div className="text-center w-full h-screen">
                 <SkeletonDetails />
             </div>
         );
@@ -98,7 +98,7 @@ export default function NewsArticleDetails() {
     const formattedDate = articleData && formatDate(articleData?.published_at);
 
     return (
-        <div className="p-12 w-screen h-full text-white">
+        <div className="p-12 w-screen h-full">
             <LinkButton path="/">Back</LinkButton>
             {articleData && (
                 <div className="max-w-3xl mx-auto border border-neutral-700 p-6 mt-4 rounded-lg bg-neutral-800">
@@ -109,7 +109,7 @@ export default function NewsArticleDetails() {
                     </div>
                     <p className="mb-4">{articleData.summary}</p>
                     {renderAuthors()}
-                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="text-white hover:underline">View Article</a>
+                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="bg-blue-500 py-2 px-4 rounded">View Article</a>
                 </div>
             )}
         </div>
