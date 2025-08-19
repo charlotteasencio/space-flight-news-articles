@@ -7,7 +7,7 @@ type Props = {
 
 export default function LinkButton({ path, children }: Props) {
     return (
-        <Link to={path} className="bg-blue-500 py-2 px-4 rounded">
+        <Link to={path} className="bg-blue-700 py-2 px-4 rounded">
             {children}
         </Link>
     );

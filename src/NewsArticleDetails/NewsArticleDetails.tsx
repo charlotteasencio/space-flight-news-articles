@@ -109,7 +109,7 @@ export default function NewsArticleDetails() {
                     </div>
                     <p className="mb-4">{articleData.summary}</p>
                     {renderAuthors()}
-                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="bg-blue-500 py-2 px-4 rounded">View Article</a>
+                    <a href={articleData.url} target="_blank" rel="noopener noreferrer" className="bg-blue-700 py-2 px-4 rounded">View Article</a>
                 </div>
             )}
         </div>
